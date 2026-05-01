@@ -35,6 +35,18 @@ export const MangaKatana: pageInterface = {
 
       return Number(temp[0].replace(/\D+/g, ''));
     },
+    readerConfig: [
+      {
+        current: {
+          selector: '#imgs img',
+          mode: 'countAbove',
+        },
+        total: {
+          selector: '#imgs img',
+          mode: 'count',
+        },
+      },
+    ],
     nextEpUrl() {
       const nextEpisodeAnchor = document.querySelector('a.nav_button.next') as HTMLAnchorElement;
 
