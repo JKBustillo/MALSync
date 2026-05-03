@@ -38,11 +38,11 @@ export const MangaKatana: pageInterface = {
     readerConfig: [
       {
         current: {
-          selector: '#imgs img',
+          selector: '.wrap_img',
           mode: 'countAbove',
         },
         total: {
-          selector: '#imgs img',
+          selector: '.wrap_img',
           mode: 'count',
         },
       },
