@@ -39,6 +39,18 @@ export const toonily: PageInterface = {
     getEpisode($c) {
       return $c.url().urlPart(5).regex('chapter[_-](\\d+)', 1).number().run();
     },
+    readerConfig: [
+      {
+        current: {
+          selector: '.reading-content > .page-break > img',
+          mode: 'countAbove',
+        },
+        total: {
+          selector: '.reading-content > .page-break > img',
+          mode: 'count',
+        },
+      },
+    ],
     nextEpUrl($c) {
       return $c
         .querySelector('.nav-links .nav-next a:not([class^="back"])')
