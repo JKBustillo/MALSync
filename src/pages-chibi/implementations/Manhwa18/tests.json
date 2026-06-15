@@ -1,0 +1,30 @@
+{
+  "title": "Manhwa18",
+  "url": "https://manhwa18.net",
+  "testCases": [
+    {
+      "url": "https://manhwa18.net/manga/the-villages-special-law",
+      "expected": {
+        "sync": false,
+        "title": "The Village's Special Law",
+        "identifier": "the-villages-special-law",
+        "image": "https://min.manhwa18.net/manhwa18/vnwa/images/20260424155145_054701_n59MO0XW.webp",
+        "uiSelector": true,
+        "epList": {
+          "50": "https://manhwa18.net/manga/the-villages-special-law/chapter-50",
+          "67": "https://manhwa18.net/manga/the-villages-special-law/chapter-67"
+        }
+      }
+    },
+    {
+      "url": "https://manhwa18.net/manga/the-villages-special-law/chapter-67",
+      "expected": {
+        "sync": true,
+        "title": "the villages special law",
+        "identifier": "the-villages-special-law",
+        "episode": 67,
+        "overviewUrl": "https://manhwa18.net/manga/the-villages-special-law"
+      }
+    }
+  ]
+}

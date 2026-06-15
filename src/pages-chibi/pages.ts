@@ -106,6 +106,7 @@ import { TeamShadowi } from './implementations/TeamShadowi/main';
 import { TopManhua } from './implementations/TopManhua/main';
 import { OmegaScans } from './implementations/OmegaScans/main';
 import { MangaOni } from './implementations/MangaOni/main';
+import { Manhwa18 } from './implementations/Manhwa18/main';
 
 export const pages: { [key: string]: PageInterface } = {
   animeav1,
@@ -214,4 +215,5 @@ export const pages: { [key: string]: PageInterface } = {
   TeamShadowi,
   OmegaScans,
   MangaOni,
+  Manhwa18,
 };

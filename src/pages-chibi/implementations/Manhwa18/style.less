@@ -1,0 +1,12 @@
+@import './../pages';
+
+@boxBackground: rgba(255, 255, 255, 0.08);
+@boxFontColor: white;
+
+// Resaltado del último capítulo trackeado: el valor base (#002e7459) es casi
+// invisible sobre el fondo oscuro del sitio (ver nota #4 de IMPLEMENTATION_NOTES).
+@activeEp: #2e51a280;
+
+.m18-ch-list a.m18-ch-row.mal-sync-active {
+  background-color: @activeEp !important;
+}
