@@ -42,11 +42,11 @@ export const toonily: PageInterface = {
     readerConfig: [
       {
         current: {
-          selector: '.reading-content > .page-break > img',
+          selector: '.reading-content img',
           mode: 'countAbove',
         },
         total: {
-          selector: '.reading-content > .page-break > img',
+          selector: '.reading-content img',
           mode: 'count',
         },
       },
