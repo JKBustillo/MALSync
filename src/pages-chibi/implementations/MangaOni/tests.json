@@ -1,0 +1,39 @@
+{
+  "title": "MangaOni",
+  "url": "https://manga-oni.com",
+  "testCases": [
+    {
+      "url": "https://manga-oni.com/manga/tonari-no-nobukuni-san-wa-ore-no-koto-ga-sukina-ki-ga-suru/",
+      "expected": {
+        "sync": false,
+        "title": "Tonari no Nobukuni-san wa Ore no Koto ga Sukina Ki ga Suru",
+        "identifier": "tonari-no-nobukuni-san-wa-ore-no-koto-ga-sukina-ki-ga-suru",
+        "uiSelector": true,
+        "epList": {
+          "60": "https://manga-oni.com/lector/tonari-no-nobukuni-san-wa-ore-no-koto-ga-sukina-ki-ga-suru/210845/",
+          "69": "https://manga-oni.com/lector/tonari-no-nobukuni-san-wa-ore-no-koto-ga-sukina-ki-ga-suru/762117/"
+        }
+      }
+    },
+    {
+      "url": "https://manga-oni.com/manhwa/accidentally-heavenly-match/",
+      "expected": {
+        "sync": false,
+        "title": "Accidentally Heavenly Match",
+        "identifier": "accidentally-heavenly-match",
+        "uiSelector": true
+      }
+    },
+    {
+      "url": "https://manga-oni.com/lector/tonari-no-nobukuni-san-wa-ore-no-koto-ga-sukina-ki-ga-suru/210845/",
+      "expected": {
+        "sync": true,
+        "title": "Tonari no Nobukuni-san wa Ore no Koto ga Sukina Ki ga Suru",
+        "identifier": "tonari-no-nobukuni-san-wa-ore-no-koto-ga-sukina-ki-ga-suru",
+        "overviewUrl": "https://manga-oni.com/manga/tonari-no-nobukuni-san-wa-ore-no-koto-ga-sukina-ki-ga-suru/",
+        "episode": 60,
+        "uiSelector": false
+      }
+    }
+  ]
+}

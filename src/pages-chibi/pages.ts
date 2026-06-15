@@ -105,6 +105,7 @@ import { Zoro } from './implementations/Zoro/main';
 import { TeamShadowi } from './implementations/TeamShadowi/main';
 import { TopManhua } from './implementations/TopManhua/main';
 import { OmegaScans } from './implementations/OmegaScans/main';
+import { MangaOni } from './implementations/MangaOni/main';
 
 export const pages: { [key: string]: PageInterface } = {
   animeav1,
@@ -212,4 +213,5 @@ export const pages: { [key: string]: PageInterface } = {
   Zoro,
   TeamShadowi,
   OmegaScans,
+  MangaOni,
 };
