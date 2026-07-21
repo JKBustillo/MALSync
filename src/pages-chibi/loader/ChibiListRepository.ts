@@ -74,6 +74,12 @@ export class ChibiListRepository {
         ),
       );
 
+    // ponytail: la build local siempre gana sobre los repos remotos. El timestamp
+    // de version es la hora del build (chibiHelper), así que cualquier build de
+    // upstream pisa las implementaciones propias. El remoto solo aporta páginas
+    // que no existan en local.
+    const localRoot = this.collections.find(c => !c.startsWith('http'));
+
     collectionsData.forEach(col => {
       if ('error' in col) return;
       Object.keys(col.pages).forEach(key => {
@@ -84,6 +90,7 @@ export class ChibiListRepository {
 
         const newer =
           data.chibiPages[key] &&
+          data.chibiPages[key].root !== localRoot &&
           data.chibiPages[key].version.hash !== col.pages[key].version.hash &&
           Number(data.chibiPages[key].version.timestamp) < Number(col.pages[key].version.timestamp);
 
