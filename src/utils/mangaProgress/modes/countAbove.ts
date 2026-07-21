@@ -24,6 +24,11 @@ export class countAbove extends ModeAbstract<arguments> {
 
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
+      // Una <img> aún sin cargar (naturalWidth 0) no se ha leído aunque su hueco
+      // colapsado quede sobre el viewport. Contarla dispara el progreso a 100% en
+      // lectores lazy (loading="lazy"/data-src). Los no-<img> no tienen naturalWidth
+      // (undefined !== 0), así que no se ven afectados.
+      if ((element as HTMLImageElement).naturalWidth === 0) continue;
       const rect = element.getBoundingClientRect();
       if (rect.bottom <= windowHeight && rect.left <= windowWidth && rect.width && rect.height) {
         inPort.push(element);
