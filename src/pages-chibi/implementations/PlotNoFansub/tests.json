@@ -1,0 +1,40 @@
+{
+  "title": "PlotNoFansub",
+  "url": "https://plotnofansub.com",
+  "testCases": [
+    {
+      "url": "https://plotnofansub.com/manga/mahou-tsukai-no-yome/",
+      "expected": {
+        "sync": false,
+        "title": "Mahou Tsukai No Yome",
+        "identifier": "mahou-tsukai-no-yome",
+        "image": "https://imagenes.plotnofansub.com/2026/04/maho.webp",
+        "uiSelector": true,
+        "epList": {
+          "118": "https://plotnofansub.com/manga/mahou-tsukai-no-yome/118/",
+          "119": "https://plotnofansub.com/manga/mahou-tsukai-no-yome/119/"
+        }
+      }
+    },
+    {
+      "url": "https://plotnofansub.com/manga/mahou-tsukai-no-yome/119/",
+      "expected": {
+        "sync": true,
+        "title": "Mahou Tsukai No Yome",
+        "identifier": "mahou-tsukai-no-yome",
+        "episode": 119,
+        "overviewUrl": "https://plotnofansub.com/manga/mahou-tsukai-no-yome/"
+      }
+    },
+    {
+      "url": "https://plotnofansub.com/manga/las-100-novias-que-te-quieren-mucho-mucho-mucho-mucho-mucho/251-5/",
+      "expected": {
+        "sync": true,
+        "title": "Las 100 novias que te quieren mucho mucho mucho mucho mucho",
+        "identifier": "las-100-novias-que-te-quieren-mucho-mucho-mucho-mucho-mucho",
+        "episode": 251,
+        "overviewUrl": "https://plotnofansub.com/manga/las-100-novias-que-te-quieren-mucho-mucho-mucho-mucho-mucho/"
+      }
+    }
+  ]
+}
