@@ -18,7 +18,7 @@ export const Manhwa18: PageInterface = {
         .run();
     },
     getTitle($c) {
-      return $c.url().urlPart(4).replaceAll('-', ' ').run();
+      return $c.querySelector('.m18-rbar-title .m18-t').text().trim().run();
     },
     getIdentifier($c) {
       return $c.url().urlPart(4).run();
@@ -31,7 +31,9 @@ export const Manhwa18: PageInterface = {
         .run();
     },
     getEpisode($c) {
-      return $c.url().urlPart(5).regex('chapter[_-]?(\\d+)', 1).number().ifNotReturn().run();
+      // Hay dos formatos de slug: `chapter-95` y `chap-95-71` (el sufijo es el
+      // id interno del capítulo, no parte del número).
+      return $c.url().urlPart(5).regex('chap(?:ter)?[_-]?(\\d+)', 1).number().ifNotReturn().run();
     },
     readerConfig: [
       {
