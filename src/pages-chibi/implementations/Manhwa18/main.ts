@@ -24,9 +24,9 @@ export const Manhwa18: PageInterface = {
       return $c.string('/manga/').concat($c.this('sync.getIdentifier').run()).urlAbsolute().run();
     },
     getEpisode($c) {
-      // Hay dos formatos de slug: `chapter-95` y `chap-95-71` (el sufijo es el
-      // id interno del capítulo, no parte del número).
-      return $c.url().urlPart(5).regex('chap(?:ter)?[_-]?(\\d+)', 1).number().ifNotReturn().run();
+      // El slug pierde el punto decimal (316.5 → `chapter-3165`), así que el
+      // número sale del <title>: "Manga - Chapter 316.5 - Manhwa18".
+      return $c.title().regex('Chapter\\s+(\\d+(?:\\.\\d+)?)', 1).number().ifNotReturn().run();
     },
     readerConfig: [
       {
