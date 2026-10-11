@@ -19,7 +19,6 @@ import { JapScan } from './JapScan/main';
 import { Hulu } from './Hulu/main';
 import { Hidive } from './Hidive/main';
 import { MangaKatana } from './MangaKatana/main';
-import { manga4life } from './manga4life/main';
 import { AnimeXin } from './AnimeXin/main';
 import { MonosChinos } from './MonosChinos/main';
 import { Anime365 } from './Anime365/main';
@@ -36,16 +35,12 @@ import { MangaHere } from './MangaHere/main';
 import { MangaFox } from './MangaFox/main';
 import { DesuOnline } from './DesuOnline/main';
 import { WuxiaWorld } from './WuxiaWorld/main';
-import { ReaperScans } from './ReaperScans/main';
 import { LynxScans } from './LynxScans/main';
 import { DeathTollScans } from './DeathTollScans/main';
 import { ManhuaPlus } from './ManhuaPlus/main';
 import { Readm } from './Readm/main';
 import { tioanime } from './tioanime/main';
-import { MangaSee } from './MangaSee/main';
 import { Okanime } from './Okanime/main';
-import { BSTO } from './BSTO/main';
-import { Jellyfin } from './Jellyfin/main';
 import { An1me } from './An1me/main';
 import { MangaJar } from './MangaJar/main';
 import { Otakustv } from './Otakustv/main';
@@ -55,12 +50,10 @@ import { Fumetsu } from './Fumetsu/main';
 import { FrixySubs } from './FrixySubs/main';
 import { Guya } from './Guya/main';
 import { MangaHub } from './MangaHub/main';
-import { Bentomanga } from './Bentomanga/main';
 import { ReadManhua } from './ReadManhua/main';
 import { ImmortalUpdates } from './ImmortalUpdates/main';
 import { LHTranslation } from './LHTranslation/main';
 import { MangasOrigines } from './MangasOrigines/main';
-import { BlueSolo } from './BlueSolo/main';
 import { DisasterScans } from './DisasterScans/main';
 import { Aniworld } from './Aniworld/main';
 import { BetterAnime } from './BetterAnime/main';
@@ -74,14 +67,11 @@ import { ToonAnime } from './ToonAnime/main';
 import { ADKami } from './ADKami/main';
 import { Kaguya } from './Kaguya/main';
 import { Hdrezka } from './Hdrezka/main';
-import { SovetRomantica } from './SovetRomantica/main';
 import { ADN } from './ADN/main';
 import { Aniyan } from './Aniyan/main';
 import { Docchi } from './Docchi/main';
-import { FMTeam } from './FMTeam/main';
 import { Animelon } from './Animelon/main';
 import { AnimeSama } from './AnimeSama/main';
-import { MangaFire } from './MangaFire/main';
 import { projectsuki } from './projectsuki/main';
 import { AnimeBuff } from './AnimeBuff/main';
 import { AnimeOnegai } from './AnimeOnegai/main';
@@ -125,7 +115,6 @@ export const pages = {
   Hulu,
   Hidive,
   MangaKatana,
-  manga4life,
   AnimeXin,
   MonosChinos,
   Anime365,
@@ -142,16 +131,12 @@ export const pages = {
   MangaFox,
   DesuOnline,
   WuxiaWorld,
-  ReaperScans,
   LynxScans,
   DeathTollScans,
   ManhuaPlus,
   Readm,
   tioanime,
-  MangaSee,
   Okanime,
-  BSTO,
-  Jellyfin,
   An1me,
   MangaJar,
   Otakustv,
@@ -161,12 +146,10 @@ export const pages = {
   FrixySubs,
   Guya,
   MangaHub,
-  Bentomanga,
   ReadManhua,
   ImmortalUpdates,
   LHTranslation,
   MangasOrigines,
-  BlueSolo,
   DisasterScans,
   Aniworld,
   BetterAnime,
@@ -180,14 +163,11 @@ export const pages = {
   ADKami,
   Kaguya,
   Hdrezka,
-  SovetRomantica,
   ADN,
   Aniyan,
   Docchi,
-  FMTeam,
   Animelon,
   AnimeSama,
-  MangaFire,
   projectsuki,
   AnimeBuff,
   AnimeOnegai,

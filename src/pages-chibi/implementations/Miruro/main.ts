@@ -2,11 +2,14 @@ import { PageInterface } from '../../pageInterface';
 
 export const Miruro: PageInterface = {
   name: 'Miruro',
-  domain: ['https://www.miruro.to', 'https://www.miruro.tv', 'https://www.miruro.online'],
+  domain: ['https://www.miruro.to', 'https://www.miruro.tv'],
   languages: ['English'],
   type: 'anime',
   urls: {
-    match: ['*://*.miruro.to/*', '*://*.miruro.tv/*', '*://*.miruro.online/*'],
+    match: ['*://*.miruro.to/*', '*://*.miruro.tv/*', '*://*.miruro.bz/*', '*://*.miruro.ru/*'],
+    player: {
+      strm: ['*://strm.cx/*'],
+    },
   },
   search: 'https://www.miruro.to/search?query={searchtermPlus}',
   sync: {
@@ -20,34 +23,35 @@ export const Miruro: PageInterface = {
         .run();
     },
     getTitle($c) {
-      return $c.querySelector('.title a').text().trim().run();
+      return $c.querySelector('h1 a').text().trim().run();
     },
     getIdentifier($c) {
       return $c.url().urlPart(4).run();
     },
     getImage($c) {
-      return $c.querySelector('#root a[href*="info/"] img').getAttribute('src').ifNotReturn().run();
+      return $c.querySelector('h1 a[href*="info/"] img').getAttribute('src').ifNotReturn().run();
     },
     getOverviewUrl($c) {
-      return $c.querySelector('#root a[href*="info/"]').getAttribute('href').urlAbsolute().run();
+      return $c.querySelector('h1 a[href*="info/"]').getAttribute('href').urlAbsolute().run();
     },
     getEpisode($c) {
       return $c.url().urlParam('ep').number().run();
     },
     getMalUrl($c) {
-      const getMalId = $c
-        .querySelector("a[href^='https://myanimelist.net']")
-        .getAttribute('href')
+      return $c
+        .providerUrlUtility({
+          malUrl: $c
+            .querySelector("a[href^='https://myanimelist.net']")
+            .getAttribute('href')
+            .ifNotReturn()
+            .run(),
+          anilistUrl: $c
+            .querySelector("a[href^='https://anilist.co']")
+            .getAttribute('href')
+            .ifNotReturn()
+            .run(),
+        })
         .run();
-      const getAnilistId = $c
-        .provider()
-        .equals('ANILIST')
-        .ifNotReturn()
-        .querySelector("a[href^='https://anilist.co']")
-        .getAttribute('href')
-        .run();
-
-      return $c.coalesce($c.fn(getAnilistId).run(), $c.fn(getMalId).run()).ifNotReturn().run();
     },
   },
   overview: {
@@ -70,19 +74,20 @@ export const Miruro: PageInterface = {
       return $c.querySelector('#root h1').uiAfter().run();
     },
     getMalUrl($c) {
-      const getMalId = $c
-        .querySelector("a[href^='https://myanimelist.net']")
-        .getAttribute('href')
+      return $c
+        .providerUrlUtility({
+          malUrl: $c
+            .querySelector("a[href^='https://myanimelist.net']")
+            .getAttribute('href')
+            .ifNotReturn()
+            .run(),
+          anilistUrl: $c
+            .querySelector("a[href^='https://anilist.co']")
+            .getAttribute('href')
+            .ifNotReturn()
+            .run(),
+        })
         .run();
-      const getAnilistId = $c
-        .provider()
-        .equals('ANILIST')
-        .ifNotReturn()
-        .querySelector("a[href^='https://anilist.co']")
-        .getAttribute('href')
-        .run();
-
-      return $c.coalesce($c.fn(getAnilistId).run(), $c.fn(getMalId).run()).ifNotReturn().run();
     },
     getImage($c) {
       return $c.querySelector('img[alt="Cover"]').getAttribute('src').ifNotReturn().run();
@@ -103,7 +108,7 @@ export const Miruro: PageInterface = {
               $c.url().urlPart(3).equals('watch').run(),
               $c.url().urlPart(4).boolean().run(),
               $c.url().urlPart(5).boolean().run(),
-              $c.querySelector('.title a').boolean().run(),
+              $c.querySelector('h1 a[href*="info/"]').boolean().log().run(),
             )
             .run(),
         )

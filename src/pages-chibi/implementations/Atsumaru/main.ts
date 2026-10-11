@@ -1,4 +1,29 @@
+import type { ChibiGenerator } from '../../../chibiScript/ChibiGenerator';
 import { PageInterface } from '../../pageInterface';
+
+function slashCounter($c: ChibiGenerator<unknown>, selector: string, index: number) {
+  return $c.querySelector(selector).ifNotReturn().text().split('/').at(index).trim();
+}
+
+export function chapterLabelNumber($label: ChibiGenerator<string>) {
+  return $label
+    .setVariable('chapterLabel')
+    .matches('(chapter|episode|chap|ch|ep)[^\\d]{0,3}\\d')
+    .ifThen($c =>
+      $c
+        .getVariable('chapterLabel')
+        .string()
+        .regex('(chapter|episode|chap|ch|ep)[^\\d]{0,3}(\\d+(?:\\.\\d+)?)', 2)
+        .number()
+        .return()
+        .run(),
+    )
+    .getVariable('chapterLabel')
+    .string()
+    .regex('(\\d+(?:\\.\\d+)?)', 1)
+    .ifNotReturn()
+    .number();
+}
 
 export const Atsumaru: PageInterface = {
   name: 'Atsumaru',
@@ -8,7 +33,7 @@ export const Atsumaru: PageInterface = {
   urls: {
     match: ['*://atsu.moe/*'],
   },
-  search: 'https://atsu.moe/search?query={searchtermRaw}',
+  search: 'https://atsu.moe/explore?search={searchtermRaw}',
   sync: {
     isSyncPage($c) {
       return $c
@@ -18,8 +43,8 @@ export const Atsumaru: PageInterface = {
     getTitle($c) {
       return $c
         .coalesce(
-          $c.querySelector('.box-content a[href^="/manga/"]').run(),
           $c.querySelector('p.invisible').run(),
+          $c.querySelector('.box-content a[href^="/manga/"]').run(),
         )
         .ifNotReturn()
         .text()
@@ -30,23 +55,23 @@ export const Atsumaru: PageInterface = {
       return $c.url().urlPart(4).run();
     },
     getOverviewUrl($c) {
-      return $c.querySelector('a[href^="/manga/"]').getAttribute('href').urlAbsolute().run();
+      return $c
+        .string('/manga/<identifier>')
+        .replace('<identifier>', $c.this('sync.getIdentifier').run())
+        .urlAbsolute()
+        .run();
     },
     getEpisode($c) {
       return $c
         .coalesceFn(
-          $c
-            .querySelector('span.relative:last-child')
-            .ifNotReturn()
-            .text()
-            .regex('(\\d+)(?:\\.\\d+)?\\s*/', 1)
-            .run(),
-          $c
-            .querySelectorAll('select option:checked')
-            .arrayFind($text => $text.text().includes('Page').not().run())
-            .text()
-            .regex('\\d+')
-            .run(),
+          slashCounter($c, 'span.relative:last-child', 0).run(),
+          chapterLabelNumber(
+            $c
+              .querySelector('.items-center select.cursor-pointer')
+              .ifNotReturn()
+              .selectedText()
+              .trim(),
+          ).run(),
         )
         .number()
         .run();
@@ -58,23 +83,8 @@ export const Atsumaru: PageInterface = {
         total: $c => $c.querySelectorAll('.wrapper img').length().run(),
       },
       {
-        condition: $c => $c.querySelector('[id*="atsu-page-group"]').boolean().run(),
-        // I use arrayFind in case it read chapter number instead
-        current: $c =>
-          $c
-            .querySelectorAll('.size-full option:checked')
-            .arrayFind($item => $item.text().includes('Page').run())
-            .text()
-            .regex('Page (\\d+)', 1)
-            .number()
-            .run(),
-        total: $c => $c.querySelectorAll('.z-1 img').length().run(),
-      },
-      {
-        current: $c =>
-          $c.querySelector('span.relative').text().regex('(\\d+)\\s*/', 1).number().run(),
-        total: $c =>
-          $c.querySelector('span.relative').text().regex('/\\s*(\\d+)', 1).number().run(),
+        current: $c => slashCounter($c, 'span.relative', 0).number().run(),
+        total: $c => slashCounter($c, 'span.relative', 1).number().run(),
       },
     ],
   },
@@ -139,13 +149,26 @@ export const Atsumaru: PageInterface = {
   },
   list: {
     elementsSelector($c) {
-      return $c.querySelectorAll('.flex-col > .relative.flex > a').run();
+      return $c.querySelectorAll('a[href^="/read/"].relative.rounded-sm').run();
     },
     elementUrl($c) {
       return $c.getAttribute('href').urlAbsolute().run();
     },
     elementEp($c) {
-      return $c.find('.truncate').text().regex('\\d+').number().run();
+      return $c
+        .coalesce(
+          $c
+            .target()
+            .closest('.shadow-sm')
+            .findAll('.my-auto')
+            .arrayFind($item => $item.text().matches('\\d+').run())
+            .run(),
+          $c.target().find('.truncate').run(),
+        )
+        .text()
+        .regex('(\\d+(?:\\.\\d+)?)', 1)
+        .number()
+        .run();
     },
   },
   lifecycle: {
@@ -153,12 +176,23 @@ export const Atsumaru: PageInterface = {
       return $c.addStyle(require('./style.less?raw').toString()).run();
     },
     ready($c) {
-      return $c.detectURLChanges($c.trigger().run()).domReady().trigger().run();
+      return $c
+        .detectChanges($c.url().urlPart(5).run(), $c.trigger().run())
+        .detectChanges($c.url().urlPart(4).run(), $c.trigger().run())
+        .domReady()
+        .trigger()
+        .run();
+    },
+    overviewIsReady($c) {
+      return $c
+        .waitUntilTrue($c.querySelector('a[href^="/read/"].relative.rounded-sm').boolean().run())
+        .trigger()
+        .run();
     },
     listChange($c) {
       return $c
         .detectChanges(
-          $c.querySelector('.flex-col.gap-6').ifNotReturn().text().run(),
+          $c.querySelector('.flex-col.w-full').ifNotReturn().text().run(),
           $c.trigger().run(),
         )
         .run();

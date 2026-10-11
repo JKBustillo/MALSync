@@ -35,14 +35,8 @@ export const PlotNoFansub: PageInterface = {
     },
     readerConfig: [
       {
-        current: {
-          selector: '.reading-content .rd-panel img',
-          mode: 'countAbove',
-        },
-        total: {
-          selector: '.reading-content .rd-panel img',
-          mode: 'count',
-        },
+        current: $c => $c.querySelectorAll('.reading-content .rd-panel img').countAbove().run(),
+        total: $c => $c.querySelectorAll('.reading-content .rd-panel img').length().run(),
       },
     ],
   },

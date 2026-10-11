@@ -6,7 +6,11 @@ export const MangaOni: PageInterface = {
   languages: ['Spanish'],
   type: 'manga',
   urls: {
-    match: ['*://manga-oni.com/manga/*', '*://manga-oni.com/manhwa/*', '*://manga-oni.com/lector/*'],
+    match: [
+      '*://manga-oni.com/manga/*',
+      '*://manga-oni.com/manhwa/*',
+      '*://manga-oni.com/lector/*',
+    ],
   },
   search: 'https://manga-oni.com/?s={searchtermPlus}&post_type=wp-manga',
   sync: {
@@ -23,22 +27,12 @@ export const MangaOni: PageInterface = {
       return $c.querySelector('.azul.ajp').getAttribute('href').ifNotReturn().urlAbsolute().run();
     },
     getEpisode($c) {
-      return $c
-        .title()
-        .regex('(?:[Cc]ap[íi]tulo|[Cc]hapter)[_\\s-]*(\\d+)', 1)
-        .number()
-        .run();
+      return $c.title().regex('(?:[Cc]ap[íi]tulo|[Cc]hapter)[_\\s-]*(\\d+)', 1).number().run();
     },
     readerConfig: [
       {
-        current: {
-          selector: '[id="m_img"]',
-          mode: 'countAbove',
-        },
-        total: {
-          selector: '[id="m_img"]',
-          mode: 'count',
-        },
+        current: $c => $c.querySelectorAll('[id="m_img"]').countAbove().run(),
+        total: $c => $c.querySelectorAll('[id="m_img"]').length().run(),
       },
     ],
   },

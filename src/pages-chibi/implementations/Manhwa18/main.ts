@@ -11,10 +11,7 @@ export const Manhwa18: PageInterface = {
   sync: {
     isSyncPage($c) {
       return $c
-        .and(
-          $c.url().urlPart(3).equals('manga').run(),
-          $c.url().urlPart(5).boolean().run(),
-        )
+        .and($c.url().urlPart(3).equals('manga').run(), $c.url().urlPart(5).boolean().run())
         .run();
     },
     getTitle($c) {
@@ -24,11 +21,7 @@ export const Manhwa18: PageInterface = {
       return $c.url().urlPart(4).run();
     },
     getOverviewUrl($c) {
-      return $c
-        .string('/manga/')
-        .concat($c.this('sync.getIdentifier').run())
-        .urlAbsolute()
-        .run();
+      return $c.string('/manga/').concat($c.this('sync.getIdentifier').run()).urlAbsolute().run();
     },
     getEpisode($c) {
       // Hay dos formatos de slug: `chapter-95` y `chap-95-71` (el sufijo es el
@@ -37,14 +30,8 @@ export const Manhwa18: PageInterface = {
     },
     readerConfig: [
       {
-        current: {
-          selector: '.m18-reading img',
-          mode: 'countAbove',
-        },
-        total: {
-          selector: '.m18-reading img',
-          mode: 'count',
-        },
+        current: $c => $c.querySelectorAll('.m18-reading img').countAbove().run(),
+        total: $c => $c.querySelectorAll('.m18-reading img').length().run(),
       },
     ],
   },
@@ -87,14 +74,16 @@ export const Manhwa18: PageInterface = {
       return $c.addStyle(require('./style.less?raw').toString()).run();
     },
     ready($c) {
-      return $c
-        .detectURLChanges($c.trigger().run())
-        // La lista carga de a tandas con el botón .m18-load-more; re-procesa
-        // cuando crece para resaltar capítulos viejos que el usuario expande.
-        .detectChanges($c.this('list.elementsSelector').length().run(), $c.trigger().run())
-        .domReady()
-        .trigger()
-        .run();
+      return (
+        $c
+          .detectURLChanges($c.trigger().run())
+          // La lista carga de a tandas con el botón .m18-load-more; re-procesa
+          // cuando crece para resaltar capítulos viejos que el usuario expande.
+          .detectChanges($c.this('list.elementsSelector').length().run(), $c.trigger().run())
+          .domReady()
+          .trigger()
+          .run()
+      );
     },
   },
 };
