@@ -105,6 +105,7 @@ import { TeamShadowi } from './implementations/TeamShadowi/main';
 import { TopManhua } from './implementations/TopManhua/main';
 import { MangaOni } from './implementations/MangaOni/main';
 import { Manhwa18 } from './implementations/Manhwa18/main';
+import { LectorXD } from './implementations/LectorXD/main';
 import { PlotNoFansub } from './implementations/PlotNoFansub/main';
 import { DMMTV } from './implementations/DMMTV/main';
 import { Tsukuyomi } from './implementations/Tsukuyomi/main';
@@ -228,6 +229,7 @@ export const pages: { [key: string]: PageInterface } = {
   TeamShadowi,
   MangaOni,
   Manhwa18,
+  LectorXD,
   PlotNoFansub,
   DMMTV,
   Tsukuyomi,

@@ -1,0 +1,12 @@
+@import './../pages';
+
+@boxBackground: rgba(255, 255, 255, 0.08);
+@boxFontColor: white;
+
+// El <a> es un overlay absoluto sobre la fila; el valor base (#002e7459) casi
+// no se ve (ver nota #4 de IMPLEMENTATION_NOTES).
+@activeEp: #2e51a280;
+
+#chapter-list-top a.mal-sync-active {
+  background-color: @activeEp !important;
+}

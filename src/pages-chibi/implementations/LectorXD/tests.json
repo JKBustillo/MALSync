@@ -1,0 +1,30 @@
+{
+  "title": "LectorXD",
+  "url": "https://lectorxd.com",
+  "testCases": [
+    {
+      "url": "https://lectorxd.com/manhwa/la-emperatriz-divorciada",
+      "expected": {
+        "sync": false,
+        "title": "La Emperatriz Divorciada",
+        "identifier": "la-emperatriz-divorciada",
+        "image": "https://s1.cdnlxd.xyz/manga/covers/la-emperatriz-divorciada.webp",
+        "uiSelector": true,
+        "epList": {
+          "203": "https://lectorxd.com/manhwa/la-emperatriz-divorciada/leer/203",
+          "222": "https://lectorxd.com/manhwa/la-emperatriz-divorciada/leer/222"
+        }
+      }
+    },
+    {
+      "url": "https://lectorxd.com/manhwa/la-emperatriz-divorciada/leer/221",
+      "expected": {
+        "sync": true,
+        "title": "La Emperatriz Divorciada",
+        "identifier": "la-emperatriz-divorciada",
+        "episode": 221,
+        "overviewUrl": "https://lectorxd.com/manhwa/la-emperatriz-divorciada"
+      }
+    }
+  ]
+}
