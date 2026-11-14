@@ -78,6 +78,17 @@ Si el color sigue sin verse, definir un `@activeEp` propio con más opacidad:
 @activeEp: #2e51a280; // más visible que el valor base
 ```
 
+**Otra causa posible:** el elemento de la lista es transparente y sus hijos lo cubren por completo con su propio fondo (en Manhwa18, cada capítulo es un "ticket" con talón, cuerpo y borde pintados por separado). En ese caso el fondo del enlace nunca se ve, por más opaco que sea. Revisar el `background-color` computado de los hijos y pintar esos en vez del enlace:
+
+```less
+.ip-info-ch-list a.ip-info-ch.mal-sync-active {
+  .ip-info-ch-body,
+  .ip-info-ch-edge {
+    background: #c9d6f0 !important;
+  }
+}
+```
+
 ---
 
 ## 5. Listas con "cargar más" (load more): chibi no puede hacer click
