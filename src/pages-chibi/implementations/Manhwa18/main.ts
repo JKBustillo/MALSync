@@ -15,7 +15,7 @@ export const Manhwa18: PageInterface = {
         .run();
     },
     getTitle($c) {
-      return $c.querySelector('.m18-rbar-title .m18-t').text().trim().run();
+      return $c.querySelector('.ip-reader-heading b').text().trim().run();
     },
     getIdentifier($c) {
       return $c.url().urlPart(4).run();
@@ -24,14 +24,16 @@ export const Manhwa18: PageInterface = {
       return $c.string('/manga/').concat($c.this('sync.getIdentifier').run()).urlAbsolute().run();
     },
     getEpisode($c) {
-      // El slug pierde el punto decimal (316.5 → `chapter-3165`), así que el
-      // número sale del <title>: "Manga - Chapter 316.5 - Manhwa18".
+      // The slug drops the decimal point (316.5 → `chapter-3165`), so read it from the <title>.
       return $c.title().regex('Chapter\\s+(\\d+(?:\\.\\d+)?)', 1).number().ifNotReturn().run();
     },
     readerConfig: [
       {
-        current: $c => $c.querySelectorAll('.m18-reading img').countAbove().run(),
-        total: $c => $c.querySelectorAll('.m18-reading img').length().run(),
+        // Images are mounted lazily near the viewport, so count the page containers instead.
+        current: $c =>
+          $c.querySelectorAll('.ip-reader-pages [data-reader-page-index]').countAbove().run(),
+        total: $c =>
+          $c.querySelectorAll('.ip-reader-pages [data-reader-page-index]').length().run(),
       },
     ],
   },
@@ -60,13 +62,13 @@ export const Manhwa18: PageInterface = {
   },
   list: {
     elementsSelector($c) {
-      return $c.querySelectorAll('.m18-ch-list a.m18-ch-row').run();
+      return $c.querySelectorAll('.ip-info-ch-list a.ip-info-ch').run();
     },
     elementUrl($c) {
       return $c.getAttribute('href').urlAbsolute().run();
     },
     elementEp($c) {
-      return $c.find('.m18-ch-num').text().trim().number().run();
+      return $c.find('.ip-info-ch-stub').text().trim().number().run();
     },
   },
   lifecycle: {
@@ -77,8 +79,7 @@ export const Manhwa18: PageInterface = {
       return (
         $c
           .detectURLChanges($c.trigger().run())
-          // La lista carga de a tandas con el botón .m18-load-more; re-procesa
-          // cuando crece para resaltar capítulos viejos que el usuario expande.
+          // The list only shows recent chapters until "Show all" expands it.
           .detectChanges($c.this('list.elementsSelector').length().run(), $c.trigger().run())
           .domReady()
           .trigger()

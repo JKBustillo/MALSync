@@ -3,10 +3,15 @@
 @boxBackground: rgba(255, 255, 255, 0.08);
 @boxFontColor: white;
 
-// Resaltado del último capítulo trackeado: el valor base (#002e7459) es casi
-// invisible sobre el fondo oscuro del sitio (ver nota #4 de IMPLEMENTATION_NOTES).
-@activeEp: #2e51a280;
+// The <a> is transparent and fully covered by its children, so paint those instead.
+.ip-info-ch-list a.ip-info-ch.mal-sync-active {
+  .ip-info-ch-stub {
+    background: #2e51a2 !important;
+    color: #fff !important;
+  }
 
-.m18-ch-list a.m18-ch-row.mal-sync-active {
-  background-color: @activeEp !important;
+  .ip-info-ch-body,
+  .ip-info-ch-edge {
+    background: #c9d6f0 !important;
+  }
 }
